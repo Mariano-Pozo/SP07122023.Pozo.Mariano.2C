@@ -81,19 +81,19 @@ namespace FrmView
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (this.comidas.Count > 0)
+            if (this.comida != null)
             {
 
-                IComestible comida = this.comidas.Dequeue();
                 comida.FinalizarPreparacion(this.hamburguesero.Nombre);
-                this.ActualizarAtendidos(comida);
+                this.rchFinalizados.Text += "\n" + comida.Ticket;
             }
             else
             {
-                MessageBox.Show("El Cocinero no posee comidas", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Cocinero no posee comidas", "!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
+
 
         private void FrmView_FormClosing(object sender, FormClosingEventArgs e)
         {
