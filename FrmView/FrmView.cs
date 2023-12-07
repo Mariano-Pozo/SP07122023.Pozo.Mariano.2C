@@ -8,17 +8,18 @@ namespace FrmView
 {
     public partial class FrmView : Form
     {
-        private Queue<IComestible> comidas;
+        private IComestible comida;
         Cocinero<Hamburguesa> hamburguesero;
 
         public FrmView()
         {
             InitializeComponent();
-            this.comidas = new Queue<IComestible>();
-            this.hamburguesero = new Cocinero<Hamburguesa>("Ramon");
+            
+            
+            this.hamburguesero = new Cocinero<Hamburguesa>("Carton");//
             //Alumno - agregar manejadores al cocinero
             this.hamburguesero.OnDemora += this.MostrarConteo;
-            this.hamburguesero.OnIngreso += this.MostrarComida;
+            this.hamburguesero.OnPedido += this.MostrarComida;
         }
 
 
@@ -32,7 +33,8 @@ namespace FrmView
             }
             else
             {
-                this.comidas.Enqueue(comida);
+
+                this.comida = comida;
                 this.pcbComida.Load(comida.Imagen);
                 this.rchElaborando.Text = comida.ToString(); 
             }
