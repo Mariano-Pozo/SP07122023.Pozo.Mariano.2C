@@ -36,7 +36,7 @@ namespace FrmView
                 this.pcbComida.Load(comida.Imagen);
                 this.rchElaborando.Text = comida.ToString(); 
             }
-
+            
         }
 
 

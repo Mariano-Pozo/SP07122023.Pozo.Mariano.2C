@@ -66,19 +66,24 @@ namespace Entidades.Modelos
         {
             tarea = Task.Run(() =>
             {
-                while (cancellation.IsCancellationRequested.Equals(false))
+                while (!cancellation.IsCancellationRequested)
                 {
+                    //FileManager.Guardar("entra", "entra.txt", true);
                     NotificarNuevoIngreso();
+                    //FileManager.Guardar("entra", "entra.txt", true);
                     EsperarProximoIngreso();
+                    FileManager.Guardar("entra", "entra.txt", true);
                     cantPedidosFinalizados++;
+                   // FileManager.Guardar("entra","entra.txt",true);
                     DataBaseManager.GuardarTicket<T>(nombre, menu);
+                    
                 }
             }, cancellation.Token);
         }
 
         private void NotificarNuevoIngreso()
         {
-            if (OnIngreso is not null)
+            if (OnIngreso != null)
             {
                 menu = new T();
                 menu.IniciarPreparacion();
@@ -90,15 +95,15 @@ namespace Entidades.Modelos
         {
             if (OnDemora != null)
             {
-                int tiempoEspera = 0;
-
+                int time = 0;
+                
                 while (!menu.Estado && !cancellation.IsCancellationRequested)
                 {
-                    OnDemora.Invoke(tiempoEspera);
+                    OnDemora.Invoke(time);
                     Thread.Sleep(1000);
-                    tiempoEspera += 1;
+                    time += 1;
                 }
-                demoraPreparacionTotal += tiempoEspera;
+                demoraPreparacionTotal += time;
 
             }
         }

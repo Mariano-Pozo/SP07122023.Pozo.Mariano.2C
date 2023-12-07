@@ -19,7 +19,7 @@ namespace Entidades.Files
         static FileManager()
         {
             path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);//toma la carpeta en escritorio
-            path = Path.Combine(path, "TestPath");//combina esa carpeta y el nombre de la carp
+            path = Path.Combine(path, "carpetdondeseguarda");
 
             ValidarExistenciaDeDirectorio();
         }
@@ -28,20 +28,23 @@ namespace Entidades.Files
         {
             try
             {
+                string rutaCompleta = Path.Combine(path, nombreArchivo);
                 // Comprobamos si se debe agregar información o sobrescribir el archivo
                 if (append)
                 {
+                   
                     // Si se debe agregar información, abrimos el archivo en modo Append
-                    using (StreamWriter file = new StreamWriter(nombreArchivo, true))
+                    using (StreamWriter file = new StreamWriter(rutaCompleta, true))
                     {
                         file.WriteLine(data);
+                        
                     }
                 }
                 else
                 {
                     // Si se debe sobrescribir el archivo, escribimos la información
                     // Sobrescribiendo el archivo si ya existe
-                    File.WriteAllText(nombreArchivo, data);
+                    File.WriteAllText(rutaCompleta, data);
                 }
 
                 //Console.WriteLine("¡Datos guardados correctamente!");
@@ -51,7 +54,9 @@ namespace Entidades.Files
                 string msgError = "Error al guardar los datos: ";
                 FileManager.Guardar(msgError, "logs.txt", true);
                 Console.WriteLine(msgError + ex.ToString());
+                throw new FileManagerException(msgError, ex);
             }
+            
         }
 
         public static bool Serializar<T>(T elemento, string nombreArchivo) where T : class

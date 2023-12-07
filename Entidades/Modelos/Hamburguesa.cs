@@ -29,8 +29,8 @@ namespace Entidades.Modelos
         }
 
         public string Ticket => $"{this}\nTotal a pagar:{this.costo}";
-        public bool Estado { get; }
-        public string Imagen {  get; }
+        public bool Estado { get { return estado; } }
+        public string Imagen { get { return imagen; } }
 
 
         private void AgregarIngredientes()

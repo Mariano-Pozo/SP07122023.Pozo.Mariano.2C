@@ -13,7 +13,7 @@ namespace MisTest
         {
 
             string text = "texto";
-            string nombreText = ".QQQQQQQQQ°||'¿";
+            string nombreText = "< , >, :, “, |, ?, *, /,";
             bool flag = false;
 
 
