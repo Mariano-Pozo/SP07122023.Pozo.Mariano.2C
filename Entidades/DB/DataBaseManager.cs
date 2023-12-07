@@ -13,7 +13,7 @@ namespace Entidades.DataBase
 
         static DataBaseManager()
         {
-            DataBaseManager.stringConnection = "Server = DESKTOP-8A3M14H; Database = 20230622SP; Trusted_Connection = True";
+            DataBaseManager.stringConnection = "Server = .; Database = 20230622SP; Trusted_Connection = True";
         }
         public static string GetImagenComida(string tipo)
         {
